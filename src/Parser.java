@@ -3,11 +3,11 @@ public class Parser {
 	
 	String metaFile;
 	String inputFile;
-	String outputFile;
+	static String outputFile;
 	String outputColumn[];
 	String sortColumn[];
 	String memoryLimit;
-	String order;
+	static String order;
 	
 	
 	public void parse(String inputFromCommandLine)

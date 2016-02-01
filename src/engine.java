@@ -14,11 +14,12 @@ public class engine {
 	
 	static HashMap<String, Integer> mapFile= new HashMap<String,Integer>();
 	static HashMap<Integer, String> mapDataType= new HashMap<Integer,String>();
-
+	//long fileSize,blockSize,mainMemoryParts,number_BlocksInFile;
+	static int numberOfIntermediateFile;
 
 	public static void main(String[] args) throws IOException {
 		
-		long fileSize,blockSize,mainMemoryParts,number_BlocksInFile,numberOfIntermediateFile;
+		long fileSize,blockSize,mainMemoryParts,number_BlocksInFile;//numberOfIntermediateFile;
 		
 		
 		Scanner scanner=new Scanner(System.in);
@@ -33,7 +34,8 @@ public class engine {
 		// mainMemoryPartsInFile ---> mainMemoryPartsin file 
 		number_BlocksInFile=fileSize/blockSize+1;
 		// numberOfIntermediateFile ------> Numberofintermediatefile
-		numberOfIntermediateFile=number_BlocksInFile/mainMemoryParts;
+		numberOfIntermediateFile=(int) (number_BlocksInFile/mainMemoryParts);
+		//System.out.println("---------------->"+numberOfIntermediateFile);
 		//System.out.println("Number of Block In file: "+numberOfIntermediateFile);
 		if((numberOfIntermediateFile)>mainMemoryParts-1)
 		{
@@ -55,9 +57,14 @@ public class engine {
 
 		
 
-		creater.createFile(parseinput.inputFile,mainMemoryParts, parseinput.sortColumn);
-		
-		
+		creater.createFile(parseinput.inputFile,mainMemoryParts, parseinput.sortColumn,parseinput.outputColumn);
+		//System.out.println("---"+engine.numberOfIntermediateFile);
+		for(int i=0;i<BlockCreator.files.size();i++)
+		{
+			File f=new File(BlockCreator.files.get(i));
+			f.delete();
+			
+		}
 	}
 	
 	
