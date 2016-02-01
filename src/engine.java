@@ -4,12 +4,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 
 public class engine {
 	
 	static HashMap<String, Integer> mapFile= new HashMap<String,Integer>();
+	static HashMap<Integer, String> mapDataType= new HashMap<Integer,String>();
 
 
 	public static void main(String[] args) throws IOException {
@@ -37,7 +41,21 @@ public class engine {
 			return ;
 		}
 		BlockCreator creater=new BlockCreator();
-		creater.createBlock(parseinput.inputFile,mainMemoryParts, parseinput.sortColumn);
+		/*for(Map.Entry<String, Integer> entry : mapFile.entrySet()){
+		    System.out.printf("Key : %s and Value: %s %n", entry.getKey(), entry.getValue());
+		}
+		for(Map.Entry<String, String> entry : mapDataType.entrySet()){
+		    System.out.printf("Key : %s and Value: %s %n", entry.getKey(), entry.getValue());
+		}
+		for(int i=0;i<parseinput.sortColumn.length;i++)
+		{
+			System.out.println(parseinput.sortColumn[i]);
+		}*/
+
+
+		
+
+		creater.createFile(parseinput.inputFile,mainMemoryParts, parseinput.sortColumn);
 		
 		
 	}
@@ -57,16 +75,21 @@ public class engine {
 		    	String parts[]=str.split(",");
 		    	if(parts[1].contains("date"))
 		    	{
+		    		
 		    		mapFile.put(parts[0],count);
+		    		mapDataType.put(count,"date");
 		    		size+=10;
 		    	}
 		    	else if(parts[1].contains("int"))
 		    	{
+		    		
 		    		mapFile.put(parts[0],count);
+		    		mapDataType.put(count,"int");
 		    		size+=10;
 		    	}
 		    	else if(parts[1].contains("char("))
 		    	{
+		    		mapDataType.put(count,"char");
 		    		mapFile.put(parts[0],count);
 		    		String char_value=parts[1].substring(parts[1].indexOf("char(")+5,parts[1].indexOf(')'));
 		    		size+=(Integer.parseInt(char_value));
